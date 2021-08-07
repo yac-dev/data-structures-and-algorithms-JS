@@ -14,14 +14,14 @@ class PriorityQueue {
     const newNode = new Node(value, priority);
     this.values.push(newNode);
     this.bubbleUp();
-  }
+  } // priority queueの場合は、新しいデータのvalueでbubble upなどを決めるのではなく、priorityの値でheapのdata structureを作る
   bubbleUp() {
     let addedAtIndex = this.values.length - 1;
     const addedValue = this.values[addedAtIndex];
     while (addedAtIndex > 0) {
       let parentIndex = Math.floor((addedAtIndex - 1) / 2);
       let parent = this.values[parentIndex];
-      if (addedValue.priority <= parent.priority) break;
+      if (addedValue.priority <= parent.priority) return; // coltはbreakにしている。
       this.values[parentIndex] = addedValue;
       this.values[addedAtIndex] = parent;
       addedAtIndex = parentIndex;
@@ -42,28 +42,27 @@ class PriorityQueue {
       let rightChildIndex = 2 * index + 2;
       // let leftChild = this.values[leftChildIndex] // これはできない。this.valuesの外になってしまう可能性があるから。
       let leftChildValue, rightChildValue;
-      let swap = null;
+      let tempIndex;
 
       if (leftChildIndex < this.values.length) {
         leftChildValue = this.values[leftChildIndex];
         if (leftChildValue.priority > this.values[0].priority) {
-          swap = leftChildIndex;
+          tempIndex = leftChildIndex;
         }
       }
       if (rightChildIndex < this.values.length) {
         rightChildValue = this.values[rightChildIndex];
         if (
-          (swap === null &&
-            rightChildValue.priority > this.values[0].priority) ||
-          (swap !== null && rightChildValue.priority > leftChildValue.priority)
+          (tempIndex && rightChildValue.priority > leftChildValue.priority) ||
+          (!tempIndex && rightChildValue.priority > this.values[0].priority)
         ) {
-          swap = rightChildIndex;
+          tempIndex = rightChildIndex;
         }
       }
-      if (swap === null) break; // return でもいい気がするよ。
-      this.values[index] = this.values[swap];
-      this.values[swap] = this.values[0];
-      index = swap;
+      if (!tempIndex) return; // coltはbreakってやっている。
+      this.values[index] = this.values[tempIndex];
+      this.values[tempIndex] = this.values[0];
+      index = tempIndex;
     }
   }
 }
@@ -73,9 +72,13 @@ class PriorityQueue {
 
 const pq = new PriorityQueue();
 pq.enqueue('president', 20);
-pq.enqueue('salesman', 10);
-pq.enqueue('accounter', 9);
-pq.enqueue('lowyer', 8);
+pq.enqueue('sales', 12);
+pq.enqueue('accountant', 14);
+pq.enqueue('marketing', 8);
 pq.enqueue('software engineer', 15);
-pq.enqueue('vide president', 19);
+pq.enqueue('vice president', 17);
+pq.enqueue('human resourse', 6);
+pq.enqueue('analyst', 16);
+pq.enqueue('data scientist', 16);
+// pq.dequeue();
 console.log(pq);
