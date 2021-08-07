@@ -82,3 +82,20 @@ pq.enqueue('analyst', 16);
 pq.enqueue('data scientist', 16);
 // pq.dequeue();
 console.log(pq);
+
+// simple priority queue
+class PriorityQueue {
+  constructor() {
+    this.values = [];
+  }
+  enqueue(val, priority) {
+    this.values.push({ val, priority });
+    this.sort();
+  }
+  dequeue() {
+    return this.values.shift();
+  }
+  sort() {
+    this.values.sort((a, b) => a.priority - b.priority);
+  }
+}
