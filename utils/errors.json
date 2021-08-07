@@ -1,0 +1,72 @@
+{
+  "status": "ERROR",
+  "message": {
+      "errors": {
+          "name": {
+              "name": "ValidatorError",
+              "message": "You forgot entering your name.",
+              "properties": {
+                  "message": "You forgot entering your name.",
+                  "type": "required",
+                  "path": "name",
+                  "value": ""
+              },
+              "kind": "required",
+              "path": "name",
+              "value": ""
+          },
+          "email": {
+              "name": "ValidatorError",
+              "message": "You forgot entering your email.",
+              "properties": {
+                  "message": "You forgot entering your email.",
+                  "type": "required",
+                  "path": "email",
+                  "value": ""
+              },
+              "kind": "required",
+              "path": "email",
+              "value": ""
+          },
+          "password": {
+              "name": "ValidatorError",
+              "message": "You forgot entering your password.",
+              "properties": {
+                  "message": "You forgot entering your password.",
+                  "type": "required",
+                  "path": "password",
+                  "value": ""
+              },
+              "kind": "required",
+              "path": "password",
+              "value": ""
+          },
+          "passwordConfirm": {
+              "name": "ValidatorError",
+              "message": "Type your password again.",
+              "properties": {
+                  "message": "Type your password again.",
+                  "type": "required",
+                  "path": "passwordConfirm",
+                  "value": ""
+              },
+              "kind": "required",
+              "path": "passwordConfirm",
+              "value": ""
+          }
+      },
+      "_message": "User validation failed",
+      "statusCode": 500,
+      "status": "ERROR",
+      "name": "ValidationError",
+      "message": "User validation failed: name: You forgot entering your name., email: You forgot entering your email., password: You forgot entering your password., passwordConfirm: Type your password again."
+  }
+}
+
+
+"test": "env-cmd -f ./config/test.env jest --watch",
+"jest": {
+    "testEnvironment": "node"
+  },
+jestをインストールした事でなんか変なエラーを起こしている。と思う。。。→そうだった。
+development dependenciesにしてたけどだめなんだ。何なんだろう。この現象は。。。。
