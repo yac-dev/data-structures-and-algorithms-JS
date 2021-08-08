@@ -21,7 +21,7 @@ class PriorityQueue {
     while (addedAtIndex > 0) {
       let parentIndex = Math.floor((addedAtIndex - 1) / 2);
       let parent = this.values[parentIndex];
-      if (addedValue.priority <= parent.priority) return; // coltはbreakにしている。
+      if (addedValue.priority >= parent.priority) return; // coltはbreakにしている。 //今回はMinbinaryheap型のdata structureにしている。
       this.values[parentIndex] = addedValue;
       this.values[addedAtIndex] = parent;
       addedAtIndex = parentIndex;
