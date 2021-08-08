@@ -1,21 +1,3 @@
-// wgファイルでやっていた通り、基本はundirectedなwgで考える。そこにweightの情報をのせていくこととする。
-class Weightedwg {
-  constructor() {
-    this.adjacentList = {};
-  }
-
-  addVertex(vertex) {
-    if (!this.adjacentList[vertex]) this.adjacentList[vertex] = [];
-    return this;
-  }
-
-  addEdge(vertex1, vertex2, weight) {
-    this.adjacentList[vertex1].push({ vertex: vertex2, weight: weight });
-    this.adjacentList[vertex2].push({ vertex: vertex1, weight: weight });
-    return this;
-  }
-}
-
 class Node {
   constructor(value, priority) {
     this.value = value;
@@ -81,6 +63,60 @@ class PriorityQueue {
       this.values[index] = this.values[tempIndex];
       this.values[tempIndex] = this.values[0];
       index = tempIndex;
+    }
+  }
+}
+
+// wgファイルでやっていた通り、基本はundirectedなwgで考える。そこにweightの情報をのせていくこととする。
+class Weightedwg {
+  constructor() {
+    this.adjacentList = {};
+  }
+
+  addVertex(vertex) {
+    if (!this.adjacentList[vertex]) this.adjacentList[vertex] = [];
+    return this;
+  }
+
+  addEdge(vertex1, vertex2, weight) {
+    this.adjacentList[vertex1].push({ vertex: vertex2, weight: weight });
+    this.adjacentList[vertex2].push({ vertex: vertex1, weight: weight });
+    return this;
+  }
+
+  Dijkstra(start, finish) {
+    // weighted graphはadjacentListを既に持っている。そこに対して、priority queueのinstanceを使う。
+    const nodes = new PriorityQueue();
+    const distances = {}; // distancesは、coltがやってた、一番メインの表のやつのこと。
+    const previous = {};
+    let path = [];
+    let smallest;
+
+    // adjacentList自体は、
+    for (let vertex in this.adjacentList) {
+      if (vertex === start) {
+        distances[vertex] = 0;
+        nodes.enqueue(vertex, 0);
+      } else {
+        distances[vertex] = Infinity;
+        nodes.enqueue(vertex, Infinity);
+      }
+      previous[vertex] = null;
+    }
+
+    // as long as there si something to visit
+    while (nodes.values.length) {
+      smallest = nodes.dequeue().value;
+      if (smallest === finish) {
+        while (previous[smallest]) {
+          path.push(smallest);
+          smallest = previous[smallest];
+        }
+        break;
+      }
+    }
+    if(smallest || distances[smallest] !== Infinity){
+      for(let neighbor in this.adjacentList[smallest])
     }
   }
 }
