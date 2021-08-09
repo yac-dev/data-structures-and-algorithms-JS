@@ -87,40 +87,7 @@ class WeightedGraph {
   }
 
   Dijkstra(start, finish) {
-    // weighted graphはadjacentListを既に持っている。そこに対して、priority queueのinstanceを使う。
-    const nodes = new PriorityQueue();
-    const distances = {}; // distancesは、coltがやってた、一番メインの表のやつのこと。
-    const previous = {};
-    let path = [];
-    let smallest;
-
-    // adjacentList自体は、
-    for (let vertex in this.adjacentList) {
-      if (vertex === start) {
-        distances[vertex] = 0;
-        nodes.enqueue(vertex, 0);
-      } else {
-        distances[vertex] = Infinity;
-        nodes.enqueue(vertex, Infinity);
-      }
-      previous[vertex] = null;
-    }
-
-    // as long as there si something to visit
-    while (nodes.values.length) {
-      smallest = nodes.dequeue().value;
-      if (smallest === finish) {
-        while (previous[smallest]) {
-          path.push(smallest);
-          smallest = previous[smallest];
-        }
-        break;
-      }
-    }
-    if (smallest || distances[smallest] !== Infinity) {
-      for (let neighbor in this.adjacentList[smallest]) {
-      }
-    }
+    // まずはセットアップしてな。
   }
 }
 
