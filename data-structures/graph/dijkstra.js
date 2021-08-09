@@ -5,6 +5,7 @@ class Node {
   }
 }
 
+// このpriority queueは、min binary heapを元に作られている。不等号をひっくり返している。
 class PriorityQueue {
   constructor() {
     this.values = [];
@@ -21,7 +22,7 @@ class PriorityQueue {
     while (addedAtIndex > 0) {
       let parentIndex = Math.floor((addedAtIndex - 1) / 2);
       let parent = this.values[parentIndex];
-      if (addedValue.priority >= parent.priority) return; // coltはbreakにしている。 //今回はMinbinaryheap型のdata structureにしている。
+      if (addedValue.priority >= parent.priority) return; // coltはbreakにしている。 ここを、<=にすれば、max binary heap型、>=にすれば、Min binary heap型になる。
       this.values[parentIndex] = addedValue;
       this.values[addedAtIndex] = parent;
       addedAtIndex = parentIndex;
@@ -36,39 +37,40 @@ class PriorityQueue {
     return maxValue; // 最終的に配列を返したい場合は最初の変数宣言は不要。
   } // [33, 39, 41, 18, 27, 12]
   bubbleDown() {
-    let index = 0;
+    let droppingIndex = 0;
+    const droppingValue = this.values[droppingIndex];
     while (true) {
-      let leftChildIndex = 2 * index + 1; // だから、このindexってのは基本、parentのindexを指し示している。
-      let rightChildIndex = 2 * index + 2;
+      let leftChildIndex = 2 * droppingIndex + 1; // だから、このindexってのは基本、parentのindexを指し示している。
+      let rightChildIndex = 2 * droppingIndex + 2;
       // let leftChild = this.values[leftChildIndex] // これはできない。this.valuesの外になってしまう可能性があるから。
       let leftChildValue, rightChildValue;
       let tempIndex;
 
       if (leftChildIndex < this.values.length) {
         leftChildValue = this.values[leftChildIndex];
-        if (leftChildValue.priority > this.values[0].priority) {
+        if (leftChildValue.priority < droppingValue.priority) {
           tempIndex = leftChildIndex;
         }
       }
       if (rightChildIndex < this.values.length) {
         rightChildValue = this.values[rightChildIndex];
         if (
-          (tempIndex && rightChildValue.priority > leftChildValue.priority) ||
-          (!tempIndex && rightChildValue.priority > this.values[0].priority)
+          (tempIndex && rightChildValue.priority < leftChildValue.priority) ||
+          (!tempIndex && rightChildValue.priority < droppingValue.priority)
         ) {
           tempIndex = rightChildIndex;
         }
       }
       if (!tempIndex) return; // coltはbreakってやっている。
-      this.values[index] = this.values[tempIndex];
-      this.values[tempIndex] = this.values[0];
-      index = tempIndex;
+      this.values[droppingIndex] = this.values[tempIndex];
+      this.values[tempIndex] = droppingValue;
+      droppingIndex = tempIndex;
     }
   }
 }
 
 // wgファイルでやっていた通り、基本はundirectedなwgで考える。そこにweightの情報をのせていくこととする。
-class Weightedwg {
+class WeightedGraph {
   constructor() {
     this.adjacentList = {};
   }
@@ -115,13 +117,14 @@ class Weightedwg {
         break;
       }
     }
-    if(smallest || distances[smallest] !== Infinity){
-      for(let neighbor in this.adjacentList[smallest])
+    if (smallest || distances[smallest] !== Infinity) {
+      for (let neighbor in this.adjacentList[smallest]) {
+      }
     }
   }
 }
 
-var wg = new Weightedwg();
+var wg = new WeightedGraph();
 wg.addVertex('A');
 wg.addVertex('B');
 wg.addVertex('C');
