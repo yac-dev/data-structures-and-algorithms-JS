@@ -1,7 +1,8 @@
 function getDigit(num, i) {
   return Math.floor(Math.abs(num) / Math.pow(10, i)) % 10;
 } // inputとして、integreとそのintegerの10の何乗、の部分を入れる。(123, 1)っていうinputなら、2が返ってくるようになる。
-// これ自体で、leetcodeの問題とかで出そうなやつだな。
+// これ単体で、leetcodeの問題とかで出そうだな。
+// console.log(getDigit(32, 1));
 
 function digitCount(num) {
   if (num === 0) return 1;
@@ -25,9 +26,10 @@ function radixSort(nums) {
       let digit = getDigit(nums[i], k);
       digitBuckets[digit].push(nums[i]);
     }
-    nums = [].concat(...digitBuckets);
-  }
+    nums = [].concat(digitBuckets.flat()); // ここが複雑だな。あまりこういう書き方をしたことがない。
+  } // digitBuckets自体は、[[231, 43,21], , [9], ,[32, 43]] っていうarrayになっている。
+  // これを、...でdestructureすると  [231,43,21], undefined, [9], undefined, [32, 43] となる。
   return nums;
-}
+} // ここの(...digitBuckets)の部分は分析しないといけないな。
 
-radixSort([23, 345, 5467, 12, 2345, 9852]);
+console.log(radixSort([23, 345, 5467, 12, 2345, 9852]));
