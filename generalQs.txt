@@ -43,10 +43,10 @@ leetcode
 #28 Implement strStr()
 #69 Sqrt(x)
 #190 Reverse Bits
-#125 Valid Palindrome
-#189 Rotate Array
-#204 Count Primes
-#7 Reverse Integer
-#94 Binary Tree Inorder Traversal
+#125 Valid Palindrome ✋ 一回置いておこう。regular expressionをわかってないとできない。これは。
+#189 Rotate Array ❓なぜ上手くいかないかわからない。。。leetcodeがくそなのか？
+#204 Count Primes ✋ 一回置いておこう。
+#7 Reverse Integer ✅
+#94 Binary Tree Inorder Traversal ✅
 
 #2 Add Two Numbers ✅ このファイル内で解いた。

@@ -86,7 +86,7 @@ class WeightedGraph {
     return this;
   }
 
-  Dijkstra(start, finish) {
+  Dijkstra(startVertex, finishVertex) {
     // まずはセットアップしてな。
   }
 }
