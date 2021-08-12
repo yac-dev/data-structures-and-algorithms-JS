@@ -50,29 +50,3 @@ const selectionSort = (array) => {
 // mergeSort
 
 // quickSort
-
-const getDigit = (number, i) => {
-  return Math.floor(Math.abs(number) / Math.pow(10, i)) % 10;
-}; // inputのnumberにおける、その10のi乗部分の整数を出力するalgorithm。
-
-const countDigit = (number) => {
-  if (number === 0) return -1;
-  return Math.floor(Math.log10(Math.abs(number))) + 1;
-}; // 要は、inputのnumberが何桁の整数であるかを出力するalgorithm。
-
-const mostDigits = (arrayOfNumbers) => {
-  let maxDigits = 0;
-  for (let i = 0; i < arrayOfNumbers.length; i++) {
-    if (maxDigits < countDigit(arrayOfNumbers[i])) {
-      maxDigits = countDigit(arrayOfNumbers[i]);
-    }
-  }
-  return maxDigits;
-};
-
-console.log(mostDigits([123, 124, 1456, 1345666]));
-console.log(countDigit(123));
-
-console.log(getDigit(123, 2));
-
-// const radixSort = () => {};
