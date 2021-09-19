@@ -1,163 +1,3 @@
-// class Graph {
-//   // graphでは、hash tableを使う。
-//   constructor() {
-//     this.adjacentList = {};
-//   }
-
-//   addVertex(vertex) {
-//     return (this.adjacentList[vertex] = []);
-//   }
-
-//   addEdge(vertex1, vertex2) {
-//     this.adjacentList[vertex1].push(vertex2);
-//     this.adjacentList[vertex2].push(vertex1);
-//     return this;
-//   }
-
-//   // removeVertex(vertex) {
-//   //   this.adjacentList[vertex].forEach((neighbor) => {
-//   //     this.adjacentList[neighbor].filter((vertex) => vertex !== neighbor);
-//   //   });
-//   //   delete this.adjacentList[vertex];
-//   //   return this;
-//   // }
-//   removeVertex(vertex) {
-//     let neighbors = this.adjacentList[vertex];
-//     for (let i = 0; i < neighbors.length; i++) {
-//       let neighbor = neighbors[i];
-//       this.adjacentList[neighbor] = this.adjacentList[neighbor].filter(
-//         (element) => element !== vertex // {}でくくると、element !== vertexで返してくれないね。
-//       );
-//     }
-//     delete this.adjacentList[vertex];
-//     return this;
-//   }
-
-//   removeEdge(vertex1, vertex2) {
-//     this.adjacentList[vertex1] = this.adjacentList[vertex1].filter(
-//       (element) => element !== vertex2
-//     );
-//     this.adjacentList[vertex2] = this.adjacentList[vertex2].filter(
-//       (element) => element !== vertex1
-//     );
-//     return this;
-//   }
-
-//   dfsI(startVertex) {
-//     const movedList = [];
-//     const confirmedList = {};
-//     confirmedList[startVertex] = 'confirmed';
-//     const stack = [startVertex];
-//     let currentVertex;
-
-//     while (stack.length) {
-//       currentVertex = stack.pop();
-//       movedList.push(currentVertex);
-//       this.adjacentList[currentVertex].forEach((neighbor) => {
-//         if (!confirmedList[neighbor]) {
-//           confirmedList[neighbor] = 'confirmed';
-//           stack.push(neighbor);
-//         }
-//       });
-//     }
-//     return movedList;
-//   }
-
-//   bfsI(startVertex) {
-//     const movedList = [];
-//     const confirmedList = {};
-//     confirmedList[startVertex] = 'confirmed';
-//     const queue = [startVertex];
-//     let currentVertex;
-
-//     while (queue.length) {
-//       currentVertex = queue.shift();
-//       movedList.push(currentVertex);
-//       this.adjacentList[currentVertex].forEach((neighbor) => {
-//         if (!confirmedList[neighbor]) {
-//           confirmedList[neighbor] = 'confirmed';
-//           queue.push(neighbor);
-//         }
-//       });
-//     }
-
-//     return movedList;
-//   }
-
-//   dfsR(startVertex) {
-//     const movedList = [];
-//     const confirmedList = {};
-//     const adjacentList = this.adjacentList;
-
-//     (function dfs(vertex) {
-//       if (!adjacentList[vertex]) return;
-//       confirmedList[vertex] = 'confirmed';
-//       movedList.push(vertex);
-
-//       adjacentList[vertex].forEach((neighbor) => {
-//         if (!confirmedList[neighbor]) {
-//           return dfs(neighbor);
-//         }
-//       });
-//     })(startVertex);
-
-//     return movedList;
-//   }
-
-//   bfsR(startVertex) {
-//     const movedList = [];
-//     const confirmedList = {};
-//     const adjacentList = this.adjacentList;
-//     const queue = [];
-
-//     (function bfs(vertex) {
-//       if (!adjacentList[vertex]) return;
-//       confirmedList[vertex] = 'confirmed';
-//       movedList.push(vertex);
-
-//       adjacentList[vertex].forEach((neighbor) => {
-//         if (!confirmedList[neighbor]) {
-//           queue.push(neighbor);
-//         }
-//         return bfs(queue.shift());
-//       });
-//     })(startVertex);
-
-//     return movedList;
-//   }
-// }
-
-// // //          A
-// // //        /   \
-// // //       B     C
-// // //       |     |
-// // //       D --- E
-// // //        \   /
-// // //          F
-
-// const g = new Graph();
-// g.addVertex('A');
-// g.addVertex('B');
-// g.addVertex('C');
-// g.addVertex('D');
-// g.addVertex('E');
-// g.addVertex('F');
-// g.addEdge('A', 'B');
-// g.addEdge('A', 'C');
-// g.addEdge('B', 'D');
-// g.addEdge('C', 'E');
-// g.addEdge('D', 'E');
-// g.addEdge('D', 'F');
-// g.addEdge('E', 'F');
-// // g.removeVertex('A');
-// // g.removeEdge('B', 'D');
-// // console.log(g.dfsI('A'));
-// // console.log(g.dfsR('A'));
-// console.log(g.bfsI('A'));
-// // console.log(g.bfsR('A')); // あまり、graphにおけるbfsのrecursiveな実装はないかもな。
-
-// // console.log(g);
-
 class Node {
   constructor(value, priority) {
     this.value = value;
@@ -240,16 +80,6 @@ class PriorityQueue {
   }
 }
 
-const pq = new PriorityQueue();
-pq.insert('yosuke', 4);
-pq.insert('yosuke', 9);
-pq.insert('yosuke', 13);
-pq.insert('yosuke', 8);
-pq.insert('yosuke', 24);
-pq.insert('yosuke', 15);
-console.dir(pq.extractMinNode(), { depth: null });
-console.dir(pq, { depth: null });
-
 class WeightedGraph {
   constructor() {
     this.adjacentList = {};
@@ -262,6 +92,10 @@ class WeightedGraph {
     this.adjacentList[vertex1].push({ vertex: vertex2, weight: weight });
     this.adjacentList[vertex2].push({ vertex: vertex1, weight: weight });
     return this;
+  }
+
+  Dijkstra(startVertex, finishVertex) {
+    // まだだなー。dijkstraは。
   }
 }
 
@@ -278,5 +112,67 @@ wg.addEdge('A', 'E', 6);
 wg.addEdge('B', 'C', 1);
 wg.addEdge('C', 'D', 1);
 wg.addEdge('E', 'D', 1);
-
+// console.log(wg.Dijkstra('A', 'C'));
 // console.dir(wg, { depth: null });
+
+class Graph {
+  constructor() {
+    this.adjacentList = {};
+  }
+
+  addVertex(vertex) {
+    this.adjacentList[vertex] = [];
+    return this;
+  }
+  addEdge(vertex1, vertex2) {
+    this.adjacentList[vertex1].push(vertex2);
+    this.adjacentList[vertex2].push(vertex1);
+    return this;
+  }
+  removeVertex(vertex) {
+    const neighbors = this.adjacentList[vertex];
+    for (let i = 0; i < neighbors.length; i++) {
+      const neighbor = neighbors[i];
+      this.adjacentList[neighbor] = this.adjacentList[neighbor].filter(
+        (element) => element !== vertex
+      );
+    }
+    delete this.adjacentList[vertex];
+    return this;
+  }
+  removeEdge(vertex1, vertex2) {
+    this.adjacentList[vertex1] = this.adjacentList[vertex1].filter(
+      (element) => element !== vertex2
+    );
+    this.adjacentList[vertex2] = this.adjacentList[vertex2].filter(
+      (element) => element !== vertex1
+    );
+    return this;
+  }
+
+  dfsI(startVertex) {
+    const visitedList = [];
+    const confirmedList = {};
+    confirmedList[startVertex] = 'COnfirmed!';
+    const stack = [startVertex];
+
+    while (stack.length) {}
+  }
+}
+
+const g = new Graph();
+g.addVertex('A');
+g.addVertex('B');
+g.addVertex('C');
+g.addVertex('D');
+g.addVertex('E');
+
+g.addEdge('A', 'B');
+g.addEdge('A', 'C');
+g.addEdge('A', 'E');
+g.addEdge('C', 'D');
+g.addEdge('B', 'D');
+g.addEdge('E', 'D');
+// g.removeEdge('A', 'B');
+// g.removeVertex('A');
+console.dir(g, { depth: null });

@@ -20,7 +20,7 @@ class Graph {
     for (let i = 0; i < neighbors.length; i++) {
       let neighbor = neighbors[i];
       this.adjacentList[neighbor] = this.adjacentList[neighbor].filter(
-        (element) => element !== vertex
+        (element) => element !== vertex // {}でくくると、element !== vertexで返してくれないね。
       );
     }
     delete this.adjacentList[vertex];

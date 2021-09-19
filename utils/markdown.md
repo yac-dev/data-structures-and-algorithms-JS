@@ -58,6 +58,13 @@ server-side では、node の instance を cluster している。server 側の 
 
 ---
 
+[The Complete Javascript Course 2021: From Zero to Expert! ](https://hawkar.herokuapp.com/)
+[App](https://hawkar.herokuapp.com/)
+[App](https://hawkar.herokuapp.com/)
+[App](https://hawkar.herokuapp.com/)
+[App](https://hawkar.herokuapp.com/)
+[App](https://hawkar.herokuapp.com/)
+
 The Complete Javascript Course 2021: From Zero to Expert! (Jonas Schmedtmann/Udemy)
 Nodejs, Express, MongoDB & More: The Complete Bootcamp 2021 (Jonas Schmedtmann/Udemy)
 Master the Coding Interview: Data Structures + Algorithms (Andrei Neagoie/Udemy)
@@ -66,3 +73,34 @@ The Complete Node.js Developer Course (3rd Edition) (Andrew Mead/Udemy)
 Modern React with Redux (Stephen Grider/Udemy)
 The Git & Github Bootcamp (Colt Steele/Udemy)
 Node JS: Advanced Concepts (Stephen Grider/Udemy)
+
+## local での環境構築
+
+開発時は、docker-compose を用いて server side と client side、二つの server を同時に起動しながら開発をしている。terminal を二つ使い server-side、client-side の server を起動して開発を行う。
+container を起動するのに、host machine の port7000、7300、7400、7500 番を使う。
+
+    // remote repositryをcloneする
+    git clone https://github.com/yac-dev/hawkar.git
+
+    // image達をbuild、container達を起動する
+    docker-compose up -d
+
+    // server-side用のcontainerに入る
+    docker-compose exec server bash
+
+    // server-sideで使うnode module達をinstallする。
+    npm install
+
+    // server-side containerのserverを起動する (localhost:7300)
+    npm run dev
+
+    // client-side用のcontainerに入る
+    docker-compose exec client bash
+
+    // client-sideで使うnode module達をinstallする。
+    npm install
+
+    // client-side containerのserverを起動する (localhost:7000)
+    npm start
+
+---

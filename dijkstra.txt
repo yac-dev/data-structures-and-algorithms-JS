@@ -1,0 +1,69 @@
+shortestPath(start, end) {
+
+        let node = new PriorityQueue();
+
+        let distances = {};
+
+        let previous = {};
+
+        let path = [];
+
+        let currentVertex;
+
+
+
+        node.enqueue(start, distances[start]);
+
+
+
+        for (let vertex in this.adjacencyList) {
+
+            vertex === start ? distances[vertex] = 0 : distances[vertex] = Infinity;
+
+            previous[vertex] = null;
+
+        }
+
+
+
+        while (node.values.length) {
+
+            currentVertex = node.dequeue().val;
+
+            if (currentVertex === end) {
+
+                path.push(currentVertex);
+
+                while (previous[currentVertex]) {
+
+                    path.push(previous[currentVertex]);
+
+                    currentVertex = previous[currentVertex];
+
+                }
+
+                return path.reverse();
+
+            };
+
+
+
+            this.adjacencyList[currentVertex].forEach(neighbor => {
+
+                let potential = distances[currentVertex] + neighbor.weight;
+
+                if (potential < distances[neighbor.node]) {
+
+                    distances[neighbor.node] = potential;
+
+                    previous[neighbor.node] = currentVertex;
+
+                    node.enqueue(neighbor.node, potential);
+
+                }
+
+            });
+
+        }
+
+    }
